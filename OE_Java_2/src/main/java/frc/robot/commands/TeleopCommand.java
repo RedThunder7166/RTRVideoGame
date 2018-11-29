@@ -1,65 +1,52 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.RampSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 
-/**
- * An example of how a teleop command might look for drive controls
- */
-public class TeleopCommand extends Command {
+public class TeleopCommand extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public TeleopCommand() {
 
-    // Our reference to the tank drive subsystem
+    
     TankDriveSubsystem tankDriveSubsystem;
+    RampSubsystem rampSubsystem;
+    IntakeSubsystem intakeSubsystem;
 
-    // Our reference to the joystick that we want to use
-    Joystick joystick;
+    // To run multiple commands at the same time,
+    // use addParallel()
+    // e.g. addParallel(new Command1());
+    // addSequential(new Command2());
+    // Command1 and Command2 will run in parallel.
 
-    /**
-     * Default Constructor
-     */
-    public TeleopCommand() {
-        init();
-    }
+    addParallel(new IntakeCommand());
+    addParallel(new RampCommand());
+    addParallel(new TankDriveCommand());
 
-    /**
-     * Separating the initial setup out makes testing easier
-     */
-    protected void init() {
-        tankDriveSubsystem = Robot.subsystemMaster.getTankDriveSubsystem();
-        joystick = Robot.oi.getJoystick();
+    // A command group will require all of the subsystems that each member
+    // would require.
+    // e.g. if Command1 requires chassis, and Command2 requires arm,
+    // a CommandGroup containing them would require both the chassis and the
+    // arm.
 
-        requires(tankDriveSubsystem);
-    }
+    intakeSubsystem = Robot.subsystemMaster.getIntakeSubsystem();
+    rampSubsystem = Robot.subsystemMaster.getRampSubsystem();
+    tankDriveSubsystem = Robot.subsystemMaster.getTankDriveSubsystem();
 
-    /**
-     * Do your iteration work in the execute method of the Command. This runs at roughly 50hz.
-     */
-    @Override
-    protected void execute() {
-        //You might do something like this to debug the joystick input
-       System.out.println("Left: " + joystick.getRawAxis(RobotMap.DRIVE_LEFT_TRIGGER));
-       System.out.println("Right: " + joystick.getRawAxis(RobotMap.DRIVE_RIGHT_TRIGGER));
 
-        //A custom video game drive to mimic a different type of input
-       double rotation = joystick.getRawAxis(RobotMap.DRIVE_STICK);
-
-        //If you want to alter the input before passing it to the controller, you can do that here.
-       //rotation = Math.pow(RobotMap.DRIVE_STICK, 3);
-
-        //The call to our subsystem with the altered rotation value from above
-       tankDriveSubsystem.videogamedrive(joystick.getRawAxis(RobotMap.DRIVE_LEFT_TRIGGER), joystick.getRawAxis(RobotMap.DRIVE_RIGHT_TRIGGER), Math.pow(rotation, 3));
-    }
-
-    /**
-     * This command should never finish on its own,
-     * instead it will be canceled by other commands that need this subsystem.
-     * @return
-     */
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+    requires(intakeSubsystem);
+    requires(rampSubsystem);
+    requires(tankDriveSubsystem);
+  }
 }

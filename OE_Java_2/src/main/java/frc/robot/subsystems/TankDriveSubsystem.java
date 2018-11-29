@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.TeleopCommand;
+import frc.robot.commands.TankDriveCommand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -11,17 +11,17 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class TankDriveSubsystem extends Subsystem{
 
-    protected Spark frontLeft;
-    protected Spark frontRight;
-    protected Spark backLeft;
-    protected Spark backRight;
+    protected VictorSP frontLeft;
+    protected VictorSP frontRight;
+    protected VictorSP backLeft;
+    protected VictorSP backRight;
 
     //Declare a couple motor groups
 
     protected SpeedControllerGroup leftMotorGroup;
     protected SpeedControllerGroup rightMotorGroup;
 
-    protected DifferentialDrive differentialDrive;
+    protected DifferentialDrive differentialvideogameDrive;
 
     //Create a constructor
     //This is the one that will default start on this subsystem
@@ -30,25 +30,25 @@ public class TankDriveSubsystem extends Subsystem{
         init();
 
     }
-    //once we are in our init method we are going to set the sparks up
+    //once we are in our init method we are going to set the VictorSPs up
 
     protected void init() {
-        frontLeft = new Spark(RobotMap.FRONT_LEFT_MOTOR);
-        frontRight = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
-        backLeft = new Spark(RobotMap.BACK_LEFT_MOTOR);
-        backRight = new Spark(RobotMap.BACK_RIGHT_MOTOR);
+        frontLeft = new VictorSP(RobotMap.FRONT_LEFT_MOTOR);
+        frontRight = new VictorSP(RobotMap.FRONT_RIGHT_MOTOR);
+        backLeft = new VictorSP(RobotMap.BACK_LEFT_MOTOR);
+        backRight = new VictorSP(RobotMap.BACK_RIGHT_MOTOR);
 
         leftMotorGroup = new SpeedControllerGroup(frontLeft, backLeft);
         rightMotorGroup = new SpeedControllerGroup(frontRight, backRight);
 
-        differentialDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+        differentialvideogameDrive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
     }
 
     @Override
     protected void initDefaultCommand() {
         //
-        setDefaultCommand(new TeleopCommand());
+        setDefaultCommand(new TankDriveCommand());
     }
 
     // public void driveasTank(double speed, double rotation){
@@ -81,6 +81,6 @@ public class TankDriveSubsystem extends Subsystem{
             System.out.println("sPeEd:" + speed);
             System.out.println("tUrN: " + turn);
 
-        differentialDrive.arcadeDrive(speed, turn);
+        differentialvideogameDrive.arcadeDrive(speed, turn);
         }
     }

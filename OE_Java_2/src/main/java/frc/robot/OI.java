@@ -45,6 +45,7 @@ public class OI
 
     // Our instance of the joystick
     protected Joystick joystick;
+    protected Joystick opjoystick;
 
     /**
      * Default Constructor
@@ -58,6 +59,7 @@ public class OI
      */
     protected void init() {
         joystick = new Joystick(RobotMap.DRIVE_STICK_PORT);
+        opjoystick = new Joystick(RobotMap.OP_STICK_PORT);
     }
 
 
@@ -65,7 +67,13 @@ public class OI
      * Used to get a reference on the joystick
      * @return
      */
-    public Joystick getJoystick() {
-        return joystick;
+    public Joystick getjoystick() {
+    return joystick;
+
     }
+
+    public Joystick getopjoystick() {
+    return opjoystick;
+    }
+
 }
