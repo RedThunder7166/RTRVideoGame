@@ -47,10 +47,10 @@ public class TeleopCommand extends Command {
        double rotation = joystick.getRawAxis(RobotMap.DRIVE_STICK);
 
         //If you want to alter the input before passing it to the controller, you can do that here.
-       rotation = Math.pow(RobotMap.DRIVE_STICK, 3);
+       //rotation = Math.pow(RobotMap.DRIVE_STICK, 3);
 
         //The call to our subsystem with the altered rotation value from above
-       tankDriveSubsystem.videogamedrive(joystick.getRawAxis(RobotMap.DRIVE_LEFT_TRIGGER), joystick.getRawAxis(RobotMap.DRIVE_RIGHT_TRIGGER), rotation);
+       tankDriveSubsystem.videogamedrive(joystick.getRawAxis(RobotMap.DRIVE_LEFT_TRIGGER), joystick.getRawAxis(RobotMap.DRIVE_RIGHT_TRIGGER), Math.pow(rotation, 3));
     }
 
     /**

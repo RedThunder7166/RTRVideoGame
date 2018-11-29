@@ -35,8 +35,8 @@ public class TankDriveSubsystem extends Subsystem{
     protected void init() {
         frontLeft = new Spark(RobotMap.FRONT_LEFT_MOTOR);
         frontRight = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
-        backLeft = new Spark(RobotMap.BACK_RIGHT_MOTOR);
-        backRight = new Spark(RobotMap.BACK_LEFT_MOTOR);
+        backLeft = new Spark(RobotMap.BACK_LEFT_MOTOR);
+        backRight = new Spark(RobotMap.BACK_RIGHT_MOTOR);
 
         leftMotorGroup = new SpeedControllerGroup(frontLeft, backLeft);
         rightMotorGroup = new SpeedControllerGroup(frontRight, backRight);
@@ -54,44 +54,33 @@ public class TankDriveSubsystem extends Subsystem{
     // public void driveasTank(double speed, double rotation){
     //     differentialDrive.arcadeDrive(speed, rotation);
     // }
-    public void videogamedrive (double leftTrigger, double rightTrigger, double turn){
+    public void videogamedrive (double leftTrigger, double rightTrigger, double rotation){
+       
+        double turn = 0.0;
         double speed = 0.0;
-        double rotation = 0.0;
 
-        if(rightTrigger > 0){
+
+        if(rightTrigger != 0){
             speed = rightTrigger;
             System.out.println(rightTrigger);
-            // You want to turn right while going forward
-            if(turn > .15){
-              speed = rightTrigger;
-              //rotation = .40*turn*rightTrigger; //Slows down right side based on how fast the bot is moving forward
+            if(Math.abs(rotation) > .15) {
+                turn = rotation;
             }
-            //You want to turn left while going forward
-            if(turn < -.15){
-              //rotation = .40*turn*rightTrigger; //Slows down left side based on how fast the bot is moving forward
-              speed = -1*rightTrigger; 
-            }
-        }else if(leftTrigger > 0){
+        
+        }else if(leftTrigger != 0){
             speed = -1*leftTrigger;
-            // You want to turn right while going backward
-            if(turn > .15){
-              //rotation = .40*turn*leftTrigger; // Left goes forward slow - positive
-              speed = leftTrigger; // Right goes backward - positive
-                  }
-            // You want to turn left while going backward
-              if(turn < -.15){
-              speed = -1*leftTrigger; // Left goes backward - negative
-              //rotation = .40*turn*leftTrigger; //Right goes forward slow - negative
-            } 
-          
-          }else if(leftTrigger == 0 && rightTrigger == 0){
-              speed = .400*turn;
-          }else{
-              //do nothing
-          }
-            System.out.println("Speed: " + speed);
-            System.out.println("Rotation: " + rotation);
+            System.out.println(leftTrigger);
+            if(Math.abs(rotation) > .15) {
+                turn = rotation;
+            }
+        }else if(Math.abs(rotation) > .15){
+            turn = rotation;
+        }else{
+            //do nothing
+        }
+            System.out.println("sPeEd:" + speed);
+            System.out.println("tUrN: " + turn);
 
-            differentialDrive.arcadeDrive(speed, rotation);
+        differentialDrive.arcadeDrive(speed, turn);
         }
     }
