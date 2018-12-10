@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.RampSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 
 /**
@@ -15,8 +13,6 @@ public class TankDriveCommand extends Command {
 
     // Our reference to the tank drive subsystem
     TankDriveSubsystem tankDriveSubsystem;
-    RampSubsystem rampSubsystem;
-    IntakeSubsystem intakeSubsystem;
 
     // Our reference to the joystick that we want to use
     Joystick joystick;

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.IntakeCommand;
 
+
 /**
  * Add your docs here.
  */
@@ -59,7 +60,7 @@ public class IntakeSubsystem extends Subsystem {
     double rotation = 0.0;
 
     if(leftyaxis != 0){
-      speed = leftyaxis;
+      speed = .65*leftyaxis;
     }else {
       //do nothing
     }

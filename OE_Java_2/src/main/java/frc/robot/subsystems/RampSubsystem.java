@@ -39,7 +39,7 @@ public class RampSubsystem extends Subsystem {
 
   protected void init() {
 
-    rampfrontleft = new VictorSP(RobotMap.R_1);
+    rampfrontleft = new VictorSP(RobotMap.L_1);
     rampfrontright = new VictorSP(RobotMap.R_1);
     rampbackleft = new VictorSP(RobotMap.L_2);
     rampbackright = new VictorSP(RobotMap.R_2);
@@ -64,7 +64,7 @@ public class RampSubsystem extends Subsystem {
     double rotation = 0.0;
 
     if(rightyaxis != 0){
-      speed = rightyaxis;
+      speed = .65*rightyaxis;
     }else {
       //do nothing
     }
@@ -72,11 +72,7 @@ public class RampSubsystem extends Subsystem {
     differentialrampDrive.arcadeDrive(speed, rotation);
 
   }
-
-
-
-
-
+  
 }
 
 

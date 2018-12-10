@@ -7,7 +7,9 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.CameraServer;
+// import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.SubsystemMaster;
 import frc.robot.Robot;
+import frc.robot.commands.Auto1;
+import frc.robot.commands.Auto2;
+import frc.robot.commands.Auto3;
+import frc.robot.commands.AutoLine;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,14 +33,18 @@ import frc.robot.Robot;
 public class Robot extends TimedRobot {
 
   public static final SubsystemMaster subsystemMaster = new SubsystemMaster();
-//I DON'T NOW WHY WE ADDED THIS
 
 public static final String SubsystemMaster = null;
 
   public static OI oi;
 
-  Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  //private Command m_autonomousCommand;
+  private SendableChooser<Command> autoChooser = new SendableChooser<>();
+  Command Auto1;
+  Command Auto2;
+  Command Auto3;
+  Command AutoLine;
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -42,9 +53,13 @@ public static final String SubsystemMaster = null;
   @Override
   public void robotInit() {
     oi = new OI();
-    //m_chooser.addDefault("Default Auto", new ExampleCommand());
-    // chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    autoChooser.addDefault("Line", new AutoLine());
+    autoChooser.addObject("Left", new Auto1());
+    autoChooser.addObject("Middle", new Auto2());
+    autoChooser.addObject("Right", new Auto3());
+    SmartDashboard.putData("Auto mode", autoChooser);
+    SmartDashboard.putString("DB/String 6", "My 21 Char TestString");
+    
 
     CameraServer.getInstance().startAutomaticCapture();
   }
@@ -69,7 +84,6 @@ public static final String SubsystemMaster = null;
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
   }
 
   /**
@@ -85,19 +99,41 @@ public static final String SubsystemMaster = null;
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    SmartDashboard.putString("DB/String 5", "AutoInit");
+    boolean LEFT;
+    LEFT = SmartDashboard.getBoolean("DB/Button 0", false);
+    boolean MIDDLE;
+		MIDDLE = SmartDashboard.getBoolean("DB/Button 1", false);
+    boolean RIGHT;
+    RIGHT = SmartDashboard.getBoolean("DB/Button 2", false);
 
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
+      if(LEFT == true){
+        SmartDashboard.putString("DB/String 0", "Left Position");
+
+        Auto1 = autoChooser.getSelected();
+        
+      }else if(MIDDLE == true){
+        SmartDashboard.putString("DB/String 0", "Middle Position");
+
+        // Auto2.start();
+
+      }else if(RIGHT == true){
+        SmartDashboard.putString("DB/String 0", "Right Postition");
+
+        // Auto3.start();
+
+      }else{
+        SmartDashboard.putString("DB/String 0", "Cross Line");
+
+      }
+
+      // String autoSelected = SmartDashboard.getString("Auto Selector",
+      // "Default"); switch(autoSelected) { case "My Auto": Auto1
+      // = new Auto1(); break; case "Default Auto": default:
+      // Auto1 = new Auto1(); break; }
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
+  
   }
 
   /**
@@ -114,8 +150,14 @@ public static final String SubsystemMaster = null;
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (Auto1 != null) {
+      Auto1.cancel();
+    }if (Auto2 != null) {
+      Auto2.cancel();
+    }if (Auto3 != null) {
+      Auto3.cancel();
+    }if (AutoLine != null) {
+      AutoLine.cancel();
     }
   }
 
@@ -125,6 +167,10 @@ public static final String SubsystemMaster = null;
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+//    ░▀▀█▀▀░░░░█▀▀▀░█▀▀█░█░░░█░ 
+//    ░░░█░░▀▀░░█░▀█░█▀▀█░░▀█▀░░ 
+//    ░░░█░░░░░░█▄▄█░█░░█░░░█░░░
   }
 
   /**

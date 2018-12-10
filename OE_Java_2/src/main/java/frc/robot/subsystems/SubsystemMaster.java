@@ -7,8 +7,8 @@ package frc.robot.subsystems;
 public class SubsystemMaster {
 
     // Our reference to the tank drive subsystem
-    TankDriveSubsystem tankDriveSubsystem;
-    RampSubsystem rampSubsystem;
+     TankDriveSubsystem tankDriveSubsystem;
+     RampSubsystem rampSubsystem;
     IntakeSubsystem intakeSubsystem;
 
     /**
@@ -29,8 +29,8 @@ public class SubsystemMaster {
         return tankDriveSubsystem;
     }
 
-    public RampSubsystem getRampSubsystem(){
-        return rampSubsystem;
+     public RampSubsystem getRampSubsystem(){
+         return rampSubsystem;
     }
 
     public IntakeSubsystem getIntakeSubsystem(){

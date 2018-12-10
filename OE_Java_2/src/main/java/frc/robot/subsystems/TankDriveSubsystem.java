@@ -61,15 +61,15 @@ public class TankDriveSubsystem extends Subsystem{
 
 
         if(rightTrigger != 0){
-            speed = rightTrigger;
-            System.out.println(rightTrigger);
+            speed = .55*rightTrigger;
+            System.out.println(.55*rightTrigger);
             if(Math.abs(rotation) > .15) {
                 turn = rotation;
             }
         
         }else if(leftTrigger != 0){
-            speed = -1*leftTrigger;
-            System.out.println(leftTrigger);
+            speed = -.55*leftTrigger;
+            System.out.println(.55*leftTrigger);
             if(Math.abs(rotation) > .15) {
                 turn = rotation;
             }
