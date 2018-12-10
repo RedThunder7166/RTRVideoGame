@@ -168,9 +168,6 @@ public static final String SubsystemMaster = null;
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-//    ░▀▀█▀▀░░░░█▀▀▀░█▀▀█░█░░░█░ 
-//    ░░░█░░▀▀░░█░▀█░█▀▀█░░▀█▀░░ 
-//    ░░░█░░░░░░█▄▄█░█░░█░░░█░░░
   }
 
   /**
